@@ -284,9 +284,14 @@ def process_data(csv_file_path=None, source_table=None, target_table=None):
     bad_lines_count = 0
 
     if csv_file_path:
+        # 检测文件编码
+        with open(csv_file_path, 'rb') as f:
+            result = chardet.detect(f.read(10000))
+            detected_encoding = result['encoding'] or 'gb18030'
+
         raw_df = pd.read_csv(
             csv_file_path,
-            encoding='gb18030',
+            encoding=detected_encoding,
             engine='python',
             sep=',',
             on_bad_lines=handle_bad_line,
