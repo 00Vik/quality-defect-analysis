@@ -179,8 +179,8 @@ def check_severity_cost(df, dirty_records):
         return df
 
     # 各严重度的80%分位数和20%分位数
-    lighter_q20 = valid.groupby('severity', observed=True)['repair_cost'].quantile(0.40)
-    heavier_q80 = valid.groupby('severity', observed=True)['repair_cost'].quantile(0.60)
+    lighter_q20 = valid.groupby('severity', observed=True)['repair_cost'].quantile(0.20)
+    heavier_q80 = valid.groupby('severity', observed=True)['repair_cost'].quantile(0.80)
 
     # Minor vs Moderate
     if 'Minor' in heavier_q80.index and 'Moderate' in lighter_q20.index:
